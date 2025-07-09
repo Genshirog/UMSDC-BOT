@@ -1,9 +1,9 @@
 import discord
-import asyncio
+import json
 from discord.ext import commands
-from config import TOKEN, REACTION_ROLES, ROLE_EMBED
-from reactionRole import reactionRole
-TOKEN = 'MTM5MjA4ODIyMzgzMTk0OTQxMg.GzfSTs.CQhXsciq5AzGTAALR7L4X3FgRFzEFOMFZ6XXzM'  # Replace this with your bot token
+from config import TOKEN, VERIFY_EMBED
+from featuresHandler import InterestView
+from buttonHandler import buttonHandler
 
 intents = discord.Intents.default()
 intents.messages = True
@@ -14,29 +14,39 @@ intents.reactions = True
 
 bot = commands.Bot(command_prefix='/', intents=intents)
 
-role_handler = reactionRole(
-    bot,
-    emoji_role_map=REACTION_ROLES,
-    title=ROLE_EMBED["title"],
-    description=ROLE_EMBED["description"]
-)
-
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
+    await bot.tree.sync()
+    try:
+        with open("verify_message.json","r") as f:
+            data = json.load(f)
+        guild = bot.get_guild(data["guild_id"])
+        channel = bot.get_channel(data["channel_id"])
+        message = await channel.fetch_message(data["message_id"])
+        view = buttonHandler(bot, title=data["title"], description=data["description"])
+        bot.add_view(view)
+        await message.edit(view=view)
+    except Exception as e:
+        print(f"❌ Could not restore verification message: {e}")
 
 
-@bot.command()
-@commands.has_permissions(administrator = True)
-async def setup_roles(ctx):
-    await role_handler.send_embed(ctx)
+@bot.tree.command(name="verifysetup", description="Send the verification embed.")
+async def verifysetup(interaction: discord.Interaction):
+    verify = buttonHandler(
+    bot,
+    title=VERIFY_EMBED["title"],
+    description=VERIFY_EMBED["description"]
+    )
+    await verify.send_embed(interaction)
 
-@bot.event
-async def on_raw_reaction_add(payload):
-    await role_handler.handle_add(payload)
-
-@bot.event
-async def on_raw_reaction_remove(payload):
-    await role_handler.handle_remove(payload)
+@bot.tree.command(name="features", description="Update your interest.")
+async def features(interaction: discord.Interaction):
+    embed = discord.Embed(
+        title="🎯 Choose Your Interest",
+        description="Select **one** interest below. Your previous interest will be removed.",
+        color=discord.Color.orange()
+    )
+    await interaction.response.send_message(embed=embed, view=InterestView(), ephemeral=True)
 
 bot.run(TOKEN)
