@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+.env.*
+.DS_Store
+*.log
+
+# VS Code or IDEs
+.vscode/
+.idea/
+
+# System files
+Thumbs.db
+Desktop.ini
+
+# Node.js (for future JS version)
+node_modules/
+package-lock.json
+npm-debug.log
+
+# Optional: Database or cache
+*.sqlite3
+*.db
+*.json
+*.bak
+.cache/
