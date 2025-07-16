@@ -8,7 +8,7 @@ class verificationModal(Modal):
         super().__init__(title="Verification Form")
         self.email = TextInput(label="Enter your umindanao email", placeholder="e.xample.123@umindanao.edu.ph", required=True)
         self.name = TextInput(label="Enter your fullname", placeholder="John Smith", required=True)
-        self.course = TextInput(label="Enter your course", placeholder="IT,CS,CpE", required= True)
+        self.course = TextInput(label="Enter your course", placeholder="IT,CS,CpE and MMA", required= True)
         self.add_item(self.email)
         self.add_item(self.name)
         self.add_item(self.course)
@@ -32,14 +32,15 @@ class verificationModal(Modal):
         course_map = {
             "IT": 1392058308067594321,
             "CS": 1392058450703286282,
-            "CPE": 1392058533373153291
+            "CPE": 1392058533373153291,
+            "MMA": 1392915204928569618
         }
 
         if status_value == status_map["member"]:
             course_value = course_map.get(course_input)
             if not course_value:
                 await interaction.response.send_message(
-                    "❌ Invalid course entered. Please use IT, CS, or CpE.",
+                    "❌ Invalid course entered. Please use IT, CS, MMA, CpE.",
                     ephemeral=True
                 )
                 return

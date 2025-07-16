@@ -4,7 +4,9 @@ from components.views.verificationView import buttonHandler
 
 async def on_ready_handler(bot: discord.Client):
     print(f'Logged in as {bot.user}')
-    await bot.tree.sync()
+    guild = discord.Object(id=1392045881695408158)
+    #bot.tree.clear_commands(guild=guild)
+    await bot.tree.sync(guild=guild)
     try:
         with open("verify_message.json","r") as f:
             data = json.load(f)
