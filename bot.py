@@ -6,6 +6,8 @@ from commands.general.features import featuresCommand
 from commands.admin.verification import verification
 from events.on_message_censor import censor_handler
 from events.on_members_join import welcome_handler
+import webserver
+
 
 intents = discord.Intents.default()
 intents.messages = True
@@ -48,4 +50,5 @@ async def verifysetup(interaction: discord.Interaction):
 async def features(interaction: discord.Interaction):
     await featuresCommand(bot,interaction)
 
+webserver.keep_alive()
 bot.run(TOKEN)
