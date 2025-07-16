@@ -37,14 +37,14 @@ class MyBot(commands.Bot):
 
 bot = MyBot()
     
-@bot.tree.command(name="verifysetup", description="Send the verification embed.")
-async def verifysetup(interaction: discord.Interaction):
-    if not interaction.user.guild_permissions.administrator:
-        await interaction.response.send_message(
-            "❌ You do not have permission to use this command.", ephemeral=True
-        )
-        return
-    await verification(bot,interaction)
+# @bot.tree.command(name="verifysetup", description="Send the verification embed.")
+# async def verifysetup(interaction: discord.Interaction):
+#     if not interaction.user.guild_permissions.administrator:
+#         await interaction.response.send_message(
+#             "❌ You do not have permission to use this command.", ephemeral=True
+#         )
+#         return
+#     await verification(bot,interaction)
 
 @bot.tree.command(name="features", description="Update your interest.")
 async def features(interaction: discord.Interaction):
