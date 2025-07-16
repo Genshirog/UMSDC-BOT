@@ -31,10 +31,10 @@ class InterestButton(Button):
             await interaction.response.send_message("❌ Role not found.", ephemeral=True)
 
         # Inside your InterestButton.callback
-        conn = get_db_connector()
-        cursor = conn.cursor()
+        # conn = get_db_connector()
+        # cursor = conn.cursor()
 
-        # Update interest for the user
-        cursor.execute("UPDATE users SET interest = %s WHERE discord_id = %s", (self.role_id, interaction.user.id))
-        conn.commit()
-        conn.close()
+        # # Update interest for the user
+        # cursor.execute("UPDATE users SET interest = %s WHERE discord_id = %s", (self.role_id, interaction.user.id))
+        # conn.commit()
+        # conn.close()
