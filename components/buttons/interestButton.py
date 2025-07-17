@@ -7,7 +7,7 @@ class InterestButton(Button):
     def __init__(self, label: str, role_id: int, active_role_id: int = None,style=discord.ButtonStyle.primary):
         super().__init__(label=label, style=style, custom_id=f"interest_{role_id}")
         self.role_id = role_id
-        self.disabled = (role_id == active_role_id)
+        # self.disabled = (role_id == active_role_id)
 
     async def callback(self, interaction: discord.Interaction):
         guild = interaction.guild
