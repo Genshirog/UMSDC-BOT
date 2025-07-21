@@ -50,5 +50,5 @@ bot = MyBot()
 async def features(interaction: discord.Interaction):
     await featuresCommand(bot,interaction)
 
-#webserver.keep_alive()
+webserver.keep_alive()
 bot.run(TOKEN)
