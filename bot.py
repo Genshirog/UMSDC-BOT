@@ -1,7 +1,7 @@
 import discord
 from events.onReadyHandler import on_ready_handler
 from discord.ext import commands
-from config.config import TOKEN, VERIFY_EMBED, ALLOWED_CHANNEL_ID
+from config.config import DISCORD_TOKEN, VERIFY_EMBED, ALLOWED_CHANNEL_ID
 from commands.general.features import featuresCommand
 from commands.admin.verification import verification
 from events.on_message_censor import censor_handler
@@ -51,4 +51,4 @@ async def features(interaction: discord.Interaction):
     await featuresCommand(bot,interaction)
 
 webserver.keep_alive()
-bot.run(TOKEN)
+bot.run(DISCORD_TOKEN)
